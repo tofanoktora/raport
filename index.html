@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Hasil Belajar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    .report-card {
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .grade-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    
+    .header-decoration {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      height: 8px;
+      width: 100%;
+    }
+    
+    .login-container {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+  
+  <!-- Login Section -->
+   <div id="login-section" class="login-container px-3 py-8">
+    <div class="w-full max-w-md">
+     <div class="bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-2xl fade-in">
+      <div class="header-decoration"></div>
+      <div class="px-6 py-8 md:px-8 md:py-10">
+       <div class="text-center mb-8">
+        <div class="mb-4">
+          <img 
+            src="smana.jpg" 
+            alt="Logo Sekolah"
+            class="mx-auto mb-3 h-20 w-auto"
+          />
+
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold mb-2" style="color: #2d3748;">Laporan Hasil Belajar</h1>
+        <p class="text-sm md:text-base" style="color: #718096;">Silakan login untuk melihat rapor</p>
+       </div>
+       <form id="login-form" class="space-y-4">
+        <div><label for="username" class="block text-sm font-semibold mb-2" style="color: #2d3748;">Username / NIS</label> <input type="text" id="username" name="username" class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:border-purple-500 transition-colors" style="border-color: #e2e8f0; color: #2d3748;" placeholder="Masukkan NIS" required>
+        </div>
+        <div><label for="password" class="block text-sm font-semibold mb-2" style="color: #2d3748;">Password / NISN</label> <input type="password" id="password" name="password" class="w-full px-4 py-3 rounded-lg border-2 focus:outline-none focus:border-purple-500 transition-colors" style="border-color: #e2e8f0; color: #2d3748;" placeholder="Masukkan NISN" required>
+        </div>
+        <div id="error-message" class="hidden p-3 rounded-lg" style="background-color: #fee; color: #c00;">
+         <p class="text-sm font-semibold">❌ Username atau password salah!</p>
+        </div><button type="submit" id="login-button" class="w-full py-3 rounded-lg font-bold text-white transition-all hover:opacity-90" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"> Login </button>
+       </form>
+	   
+	   <div>
+		<p>coba gunakan kombinasi NIS/NISN= 100000001/12301 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000002/12302 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000003/12303 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000004/12304 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000005/12305 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000006/12306 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000007/12307 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000008/12308 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000009/12309 </p>
+		<p>coba gunakan kombinasi NIS/NISN= 100000010/12310 </p>
+	   </div>
+	   
+       
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- Report Section (Initially Hidden) -->
+   <div id="report-section" class="hidden min-h-full py-4 px-3 md:py-12 md:px-4">
+    <div class="max-w-4xl mx-auto">
+	
+	
+	 <!-- Report Card Container -->
+     <div class="report-card bg-white rounded-xl md:rounded-2xl overflow-hidden fade-in">
+	 
+	 <!-- Header Decoration -->
+      <div class="header-decoration"></div>
+	  
+	  <!-- Header Section -->
+      <div class="px-4 py-4 md:px-8 md:py-6 text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+       <div class="mb-2">
+		<span class="text-3xl md:text-4xl">🎓</span>
+       </div>
+       <h1 id="school-name" class="text-lg md:text-2xl font-bold mb-1 md:mb-2">SMA NEGERI </h1>
+       <h2 id="report-title" class="text-base md:text-xl font-semibold">LAPORAN HASIL BELAJAR</h2>
+      </div>
+	  
+	  <!-- Student Information -->
+      <div class="px-4 py-4 md:px-8 md:py-6" style="background-color: #f8f9ff;">
+       <div class="grid grid-cols-1 gap-3 md:gap-4">
+        <div class="flex justify-between items-center border-b pb-2" style="border-color: #e2e8f0;">
+         <p class="text-xs md:text-sm font-semibold" style="color: #667eea;">Nama Siswa</p>
+         <p id="student-name" class="text-sm md:text-lg font-bold text-right" style="color: #2d3748;">-</p>
+        </div>
+        <div class="flex justify-between items-center border-b pb-2" style="border-color: #e2e8f0;">
+         <p class="text-xs md:text-sm font-semibold" style="color: #667eea;">NIS / NISN</p>
+         <p id="student-id" class="text-sm md:text-lg font-bold" style="color: #2d3748;">-</p>
+        </div>
+        <div class="flex justify-between items-center border-b pb-2" style="border-color: #e2e8f0;">
+         <p class="text-xs md:text-sm font-semibold" style="color: #667eea;">Kelas</p>
+         <p id="class-info" class="text-sm md:text-lg font-bold" style="color: #2d3748;">X 7</p>
+        </div>
+        <div class="flex justify-between items-center">
+         <p class="text-xs md:text-sm font-semibold" style="color: #667eea;">Semester</p>
+         <p id="semester-info" class="text-sm md:text-lg font-bold" style="color: #2d3748;">Ganjil 2024/2025</p>
+        </div>
+       </div>
+      </div>
+	  
+	  <!-- Grades Section -->
+      <div class="px-4 py-4 md:px-8 md:py-6">
+       <h3 class="text-base md:text-xl font-bold mb-3 md:mb-4" style="color: #2d3748;">📊 Nilai Mata Pelajaran</h3>
+	   
+	   <!-- A. Mapel Wajib -->
+       <div class="mb-4">
+        <h4 class="text-sm md:text-base font-bold mb-2" style="color: #667eea;">A. Mata Pelajaran Wajib</h4>
+        <div class="space-y-1">
+         <div class="flex items-center justify-between md:p-2 rounded-lg" style="background-color: #f8f9ff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">1</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Pendidikan Agama</span>
+          </div><span class="agama-value text-sm md:text-base font-bold" style="color: #2d3748;">85</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #ffffff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">2</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Pendidikan Pancasila</span>
+          </div><span class="pancasila-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #f8f9ff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">3</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Bahasa Indonesia</span>
+          </div><span class="indo-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #ffffff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">4</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Matematika (Umum)</span>
+          </div><span class="mat-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #f8f9ff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">5</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Ilmu Pengetahuan Alam</span>
+          </div><span class="ipa-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #ffffff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">6</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Ilmu Pengetahuan Sosial</span>
+          </div><span class="ips-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #f8f9ff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">7</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Bahasa Inggris</span>
+          </div><span class="ing-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #ffffff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">8</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Pendidikan Jasmani, Olahraga, dan Kesehatan</span>
+          </div><span class="penjas-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #f8f9ff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">9</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Informatika</span>
+          </div><span class="info-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #ffffff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">10</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Seni Budaya dan Prakarya</span>
+          </div><span class="sbdp-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+        </div>
+       </div>
+	   
+	   <!-- B. Mapel Pilihan -->
+       <div class="mb-1">
+        <h4 class="text-sm md:text-base font-bold mb-2" style="color: #667eea;">B. Mata Pelajaran Pilihan</h4>
+        <div class="space-y-1">
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #f8f9ff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">11</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Muatan Lokal Bahasa Daerah</span>
+          </div><span class="daerah-value text-sm md:text-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+         <div class="flex items-center justify-between  md:p-2 rounded-lg" style="background-color: #ffffff;">
+          <div class="flex items-center flex-1"><span class="text-xs md:text-sm font-semibold mr-2 md:mr-3" style="color: #4a5568; min-width: 20px;">12</span> <span class="text-xs md:text-sm" style="color: #2d3748;">Koding dan Kecerdasan Artifisial</span>
+          </div><span class="kka-value text-sm md:tsext-base font-bold" style="color: #2d3748;">0</span>
+         </div>
+        </div>
+       </div>
+      </div>
+	  
+	  
+	  <!-- Attendance, Ranking & Extracurricular Section -->
+      <div class="px-4 py-4 md:px-8 md:py-6" style="background-color: #f8f9ff;">
+	  
+	  <!-- Ranking -->
+      
+    <!-- Ranking -->
+<div class="mb-4">
+  <h4 class="text-sm md:text-base font-bold mb-3" style="color: #2d3748;">
+    🎯 Ranking Kelas
+  </h4>
+
+  <div class="text-center p-4 md:p-5 rounded-lg"
+       style="background-color: white; border: 2px solid #667eea;">
+
+    <!-- Total -->
+    <p class="total-value text-xs md:text-sm font-semibold mb-2"
+       style="color: #667eea;">
+      Nilai Total: -
+    </p>
+
+    <!-- Ranking -->
+    <p class="text-3xl md:text-4xl font-bold" style="color: #2d3748;">
+      <span class="text-lg md:text-xl" style="color: #718096;">
+        Peringkat
+      </span>
+      <span class="ranking-value">-</span>
+      <span class="text-lg md:text-xl" style="color: #718096;">
+        dari 36 siswa
+      </span>
+    </p>
+
+  </div>
+</div>
+
+	   
+	   
+	  <!-- Kehadiran -->
+       <div class="mb-4">
+        <h4 class="text-sm md:text-base font-bold mb-3" style="color: #2d3748;">📅 Kehadiran</h4>
+        <div class="grid grid-cols-3 gap-2 md:gap-4">
+         <div class="text-center p-3 md:p-4 rounded-lg" style="background-color: white; border: 2px solid #667eea;">
+          <p class="text-xs md:text-sm font-semibold mb-1" style="color: #667eea;">Sakit</p>
+          <p class="kehadiran-sakit text-xl md:text-2xl font-bold" style="color: #2d3748;">0</p>
+         </div>
+         <div class="text-center p-3 md:p-4 rounded-lg" style="background-color: white; border: 2px solid #667eea;">
+          <p class="text-xs md:text-sm font-semibold mb-1" style="color: #667eea;">Ijin</p>
+          <p class="kehadiran-izin text-xl md:text-2xl font-bold" style="color: #2d3748;">0</p>
+         </div>
+         <div class="text-center p-3 md:p-4 rounded-lg" style="background-color: white; border: 2px solid #667eea;">
+          <p class="text-xs md:text-sm font-semibold mb-1" style="color: #667eea;">Alpa</p>
+          <p class="kehadiran-alpa text-xl md:text-2xl font-bold" style="color: #2d3748;">0</p>
+         </div>
+        </div>
+       </div>
+	   
+	   
+	   <!-- Ekstrakurikuler -->
+       <div>
+        <h4 class="text-sm md:text-base font-bold mb-3" style="color: #2d3748;">🏆 Ekstrakurikuler</h4>
+        <div class="space-y-1" id="extracurricular-list"></div>
+       </div>
+
+
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  
+  
+  <script>
+/* ================================
+   VARIABEL GLOBAL
+================================ */
+let students = [];
+
+const loginForm     = document.getElementById('login-form');
+const loginSection  = document.getElementById('login-section');
+const reportSection = document.getElementById('report-section');
+const errorMessage  = document.getElementById('error-message');
+const logoutButton  = document.getElementById('logout-button');
+
+/* ================================
+   LOAD CSV
+================================ */
+async function loadCSV() {
+  const response = await fetch('nilai.csv');
+  const text = await response.text();
+  students = parseCSV(text);
+}
+
+/* ================================
+   PARSE CSV → OBJECT
+================================ */
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+
+  return lines.slice(1).map(line => {
+    const values = line.split(',');
+    let obj = {};
+    headers.forEach((h, i) => {
+      obj[h] = values[i] ? values[i].trim() : '';
+    });
+    return obj;
+  });
+}
+
+/* ================================
+   CARI SISWA (NIS + NISN)
+================================ */
+function findStudent(nis, nisn) {
+  return students.find(
+    s => s['NIS'] === nis && s['NISN'] === nisn
+  );
+}
+
+/* ================================
+   TAMPILKAN DATA SISWA
+================================ */
+function renderStudent(s) {
+  console.log(s);
+
+  // Identitas
+  document.getElementById('student-name').textContent = s['NAMA SISWA'];
+  document.getElementById('student-id').textContent =
+    `${s['NIS']} / ${s['NISN']}`;
+
+
+  // Kehadiran
+  document.querySelector('.kehadiran-sakit').textContent = s['Sakit'];
+  document.querySelector('.kehadiran-izin').textContent  = s['Izin'];
+  document.querySelector('.kehadiran-alpa').textContent  = s['Alpa'];
+
+  // Ranking
+  document.querySelector('.ranking-value').textContent  = s['rangking'];
+  document.querySelector('.total-value').textContent  = `Nilai Total: ${s['total']}`;
+
+  
+  // hasil Nilai
+  document.querySelector('.agama-value').textContent = s['PendidikanAgama'];
+  document.querySelector('.pancasila-value').textContent  = s['PendidikanPancasila'];
+  document.querySelector('.indo-value').textContent  = s['BahasaIndonesia'];
+  document.querySelector('.mat-value').textContent = s['Matematika(Umum)'];
+  document.querySelector('.ipa-value').textContent  = s['IlmuPengetahuanAlam'];
+  document.querySelector('.ips-value').textContent  = s['IlmuPengetahuanSosial'];
+  document.querySelector('.ing-value').textContent = s['BahasaInggris'];
+  document.querySelector('.penjas-value').textContent  = s['PendidikanJasmaniOlahragadanKesehatan'];
+  document.querySelector('.info-value').textContent  = s['Informatika'];
+  document.querySelector('.sbdp-value').textContent = s['SeniBudayadanPrakarya'];
+  document.querySelector('.daerah-value').textContent  = s['MuatanLokalBahasaDaerah'];
+  document.querySelector('.kka-value').textContent  = s['KodingdanKecerdasanArtifisial'];
+
+  // Ekstrakurikuler
+  renderExtracurricular(s);
+
+
+}
+
+/* ================================
+   FUNGSI MENAMPILKAN EKSTRAKURIKULER
+================================ */
+function renderExtracurricular(s) {
+  const container = document.getElementById('extracurricular-list');
+  if (!container) return;
+
+  // Kosongkan dulu
+  container.innerHTML = '';
+
+  // Loop semua key CSV
+  Object.keys(s).forEach(key => {
+    if (key.startsWith('E') && s[key]) {
+      // Ambil nama mapel/ekstrakurikuler tanpa "E"
+      const name = key.substring(2);
+
+      // Nilai/grade dari CSV
+      const value = s[key];
+
+      // Buat elemen div
+      const div = document.createElement('div');
+      div.className = 'flex items-center justify-between md:p-1 rounded-lg';
+      div.style.backgroundColor = 'white';
+
+      div.innerHTML = `
+        <span class="text-xs md:text-sm" style="color: #2d3748;">${name}</span>
+        <span class="grade-badge" style="background-color: #c6f6d5; color: #22543d;">${value}</span>
+      `;
+
+      container.appendChild(div);
+    }
+  });
+}
+
+
+/* ================================
+   LOGIN SUBMIT
+================================ */
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Load CSV sekali saja
+  if (students.length === 0) {
+    await loadCSV();
+  }
+
+  const nis  = document.getElementById('username').value.trim();
+  const nisn = document.getElementById('password').value.trim();
+
+  const siswa = findStudent(nis, nisn);
+
+  if (siswa) {
+    // LOGIN BERHASIL
+    errorMessage.classList.add('hidden');
+    loginSection.classList.add('hidden');
+    reportSection.classList.remove('hidden');
+
+    renderStudent(siswa);
+    loginForm.reset();
+  } else {
+    // LOGIN GAGAL
+    errorMessage.classList.remove('hidden');
+  }
+});
+
+/* ================================
+   LOGOUT
+================================ */
+logoutButton.addEventListener('click', () => {
+  loginSection.classList.remove('hidden');
+  reportSection.classList.add('hidden');
+  errorMessage.classList.add('hidden');
+});
+</script>
+
+
+ </body>
+</html>
